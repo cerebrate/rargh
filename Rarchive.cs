@@ -13,6 +13,7 @@
 
 using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
@@ -28,12 +29,12 @@ namespace ArkaneSystems.Rargh
         public Rarchive (string path)
         {
             this.PathName = path;
-            this.Color = Colors.Black;
+            this.Color = Brushes.Black;
         }
 
         public string PathName { get; set; }
 
-        public Color Color { get; set; }
+        public SolidColorBrush Color { get; set; }
 
         public string Name
         {
@@ -64,6 +65,21 @@ namespace ArkaneSystems.Rargh
                     {
                         if (!entry.IsDirectory)
                         {
+                            // Handle the case wjere a new file will have the same name as an existing file.
+                            var newFileName = Path.Combine (main.FolderName, Path.GetFileName (entry.FilePath));
+
+                            if (File.Exists (newFileName))
+                            {
+                                var replacementName = Path.Combine (main.FolderName,
+                                                                    string.Format ("{0}-{1}.{2}",
+                                                                    Path.GetFileNameWithoutExtension (entry.FilePath),
+                                                                    Path.GetRandomFileName(),
+                                                                    Path.GetExtension (entry.FilePath)));
+
+                                File.Move (newFileName, replacementName);
+                            }
+
+                            // Extract the file.
                             entry.WriteToDirectory (main.FolderName);
                             main.StatusIsExtracted (this, entry.FilePath);
 
@@ -78,14 +94,14 @@ namespace ArkaneSystems.Rargh
             {
                 // We don't stop for anything.
                 main.StatusIsError (this, ex.Message);
-                this.Color = Colors.Red;
+                this.Color = Brushes.Red;
 
                 // And we quit hencewith.
                 return;
             }
 
             main.StatusIsDone (this);
-            this.Color = Colors.Gray;
+            this.Color = Brushes.Gray;
         }
     }
 }
