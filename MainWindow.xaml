@@ -6,7 +6,7 @@
         Height="350"
         Width="525"
         Icon="File cabinet  open.ico"
-        ResizeMode="CanResizeWithGrip">
+        ResizeMode="CanResizeWithGrip" Loaded="Window_Loaded" MinWidth="525" MinHeight="350">
     <Window.Resources>
         <System:String x:Key="RarghNoAffix">Rargh</System:String>
         <Image x:Key="PlayIcon" Source="play.png" Height="32" Width="32" />
@@ -17,7 +17,7 @@
     <DockPanel>
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
-                <Button Command="Play" Content="{StaticResource PlayIcon}" />
+                <Button x:Name="Go" Content="{StaticResource PlayIcon}" IsEnabled="False" Click="Go_Click" />
             </ToolBar>
         </ToolBarTray>
         <Grid DockPanel.Dock="Bottom" Height="32" Background="{StaticResource {x:Static SystemColors.ControlBrushKey}}">
@@ -35,7 +35,13 @@
 				ResizeDirection="Rows"
 				Cursor="SizeNS"
 				Height="2" />
-            <ListBox x:Name="InputFiles" Grid.Row="0"/>
+            <ListBox x:Name="InputFiles" Grid.Row="0" ItemsSource="{Binding Rarchives, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Foreground="{Binding Color}" Text="{Binding Name}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
             <ListBox x:Name="Output" Margin="0" Grid.Row="2"/>
         </Grid>
 
