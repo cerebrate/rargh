@@ -1,0 +1,43 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:Rargh"
+        x:Class="Rargh.MainWindow"
+        Height="350"
+        Width="525"
+        Icon="File cabinet  open.ico"
+        ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
+        <System:String x:Key="RarghNoAffix">Rargh</System:String>
+        <Image x:Key="PlayIcon" Source="play.png" Height="32" Width="32" />
+    </Window.Resources>
+    <Window.Title>
+        <StaticResource ResourceKey="RarghNoAffix"/>
+    </Window.Title>
+    <DockPanel>
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar>
+                <Button Command="Play" Content="{StaticResource PlayIcon}" />
+            </ToolBar>
+        </ToolBarTray>
+        <Grid DockPanel.Dock="Bottom" Height="32" Background="{StaticResource {x:Static SystemColors.ControlBrushKey}}">
+            <ProgressBar x:Name="Progress" Margin="10"/>
+        </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <GridSplitter HorizontalAlignment="Stretch"
+				Grid.Row="1"
+				VerticalAlignment="Center"
+				ResizeDirection="Rows"
+				Cursor="SizeNS"
+				Height="2" />
+            <ListBox x:Name="InputFiles" Grid.Row="0"/>
+            <ListBox x:Name="Output" Margin="0" Grid.Row="2"/>
+        </Grid>
+
+    </DockPanel>
+</Window>
