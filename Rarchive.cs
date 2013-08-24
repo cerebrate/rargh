@@ -16,8 +16,6 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-using Rargh;
-
 using SharpCompress.Archive;
 
 namespace ArkaneSystems.Rargh

@@ -19,11 +19,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-using ArkaneSystems.Rargh;
-
 using Microsoft.WindowsAPICodePack.Dialogs;
 
-namespace Rargh
+namespace ArkaneSystems.Rargh
 {
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
